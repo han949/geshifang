@@ -1,9 +1,21 @@
 import { BACKEND_API_KEY } from '../config/apiConfig.js'
+import { systemPrompt, userPromptTemplate } from '../config/promptConfig.js'
 
 const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions'
 
 export function hasApiKey() {
   return !!BACKEND_API_KEY && BACKEND_API_KEY !== 'your-api-key-here'
+}
+
+/**
+ * AI 排版：调用 DeepSeek 将 Markdown 转为公众号 HTML
+ * @param {string} text - 原始 Markdown 文本
+ * @returns {Promise<string>} - 排版后的 HTML 字符串
+ */
+export async function formatWithAI(text) {
+  const userPrompt = userPromptTemplate.replace('{{text}}', text)
+  const client = new DeepSeekTypesetClient()
+  return await client.requestTypeset(systemPrompt, userPrompt)
 }
 
 export class DeepSeekTypesetError extends Error {

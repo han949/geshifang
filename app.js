@@ -290,14 +290,14 @@ async function applyFormat() {
 
     if (hasApiKey()) {
       badge.textContent = 'AI'
-      badge.className = 'gs-tb-btn text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 font-medium'
+      badge.className = 'gs-tb-btn text-xs px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-600 font-medium'
       const { formatWithAI } = await import('./utils/deepseekClient.js')
       let result = await formatWithAI(text)
       if (!result || !result.trim()) result = '<p>AI 返回为空，请重试</p>'
       preview.innerHTML = injectStatsAfterTitle(result)
     } else {
       badge.innerHTML = '&#x1F4E1; 本地'
-      badge.style.cssText = 'display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(245,158,11,0.12);color:#B45309;font-weight:500;'
+      badge.style.cssText = 'display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;border-radius:999px;background:rgba(194,113,12,0.10);color:#C2710C;font-weight:600;'
       const { formatLocally } = await import('./utils/localFormatter.js')
       const headerBg = headerBgPicker.value || '#1A3C6D'
       const h1c = h1Color.value
